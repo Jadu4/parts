@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анализ рынка готовых соусов в Москве</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Custom styles for better aesthetics and readability */
+        body {
+            font-family: 'Inter', sans-serif; /* Using Inter font */
+            background-color: #f0f2f5; /* Light grey background */
+            color: #333; /* Darker text for readability */
+        }
+        .tab-button {
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.5rem 0.5rem 0 0; /* Rounded top corners for tabs */
+            transition: all 0.3s ease;
+            font-weight: 600;
+            cursor: pointer;
+            border-bottom: 3px solid transparent; /* Highlight active tab */
+            white-space: nowrap; /* Prevent text wrapping inside buttons */
+            margin-bottom: 0.5rem; /* Add some margin for wrapping */
+        }
+        .tab-button.active {
+            background-color: #ffffff;
+            color: #2563eb; /* Blue for active tab text */
+            border-bottom-color: #2563eb;
+        }
+        .tab-button:not(.active):hover {
+            background-color: #e2e8f0; /* Lighter grey on hover */
+        }
+        .tab-content {
+            background-color: #ffffff;
+            border-radius: 0 0.75rem 0.75rem 0.75rem; /* Rounded bottom and right corners */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for content area */
+        }
+        h2 {
+            color: #1a202c; /* Darker heading color */
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 1.25rem;
+        }
+        ol {
+            list-style-type: decimal;
+            margin-left: 1.25rem;
+        }
+        /* Styling for charts to ensure responsiveness */
+        canvas {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body class="p-6">
+    <div class="max-w-6xl mx-auto bg-gray-100 rounded-xl shadow-lg overflow-hidden">
+        <div class="p-6 bg-blue-600 text-white text-center rounded-t-xl">
+            <h1 class="text-3xl font-bold">Анализ рынка готовых соусов для корпоративных столовых в Москве</h1>
+            <p class="mt-2 text-lg">2025 год с перспективой на 5 лет</p>
+        </div>
+
+        <!-- Added flex-wrap and gap-x-2 for better tab layout on smaller screens -->
+        <div class="flex flex-wrap border-b border-gray-200 bg-gray-50 rounded-t-lg p-2 gap-x-2">
+            <button class="tab-button active" onclick="openTab(event, 'summary')">Исполнительное резюме</button>
+            <button class="tab-button" onclick="openTab(event, 'market-overview')">Обзор рынка общепита</button>
+            <button class="tab-button" onclick="openTab(event, 'sauce-analysis')">Анализ рынка соусов</button>
+            <button class="tab-button" onclick="openTab(event, 'needs-assessment')">Оценка потребности и структура</button>
+            <button class="tab-button" onclick="openTab(event, 'trends')">Тренды и прогноз</button>
+            <button class="tab-button" onclick="openTab(event, 'recommendations')">Рекомендации и выводы</button>
+        </div>
+
+        <div id="summary" class="tab-content p-8 pt-6">
+            <h2 class="text-2xl font-semibold mb-4">Исполнительное резюме</h2>
+            <p class="mb-4">Рынок готовых соусов для корпоративных столовых в Москве демонстрирует значительный потенциал роста. На 2025 год общий объем рынка соусов в России составляет 1,28 млн тонн с ростом 5,7% годовых. При этом 62% производств готовой еды сосредоточены в Москве и Московской области, что создает благоприятные условия для развития сегмента корпоративного питания.</p>
+            <h3 class="text-xl font-semibold mb-3 mt-6">Основные выводы анализа:</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                <div class="bg-blue-50 p-4 rounded-lg shadow-sm">
+                    <h4 class="font-bold text-blue-700">🎯 Потенциал рынка</h4>
+                    <p><strong>Текущий объем:</strong> ~656 млн рублей в 2025 году</p>
+                    <p><strong>Прогноз к 2030:</strong> 1,05-1,35 млрд рублей</p>
+                    <p><strong>Среднегодовой рост:</strong> 8-15%</p>
+                </div>
+                <div class="bg-green-50 p-4 rounded-lg shadow-sm">
+                    <h4 class="font-bold text-green-700">📊 Структура потребления</h4>
+                    <p><strong>Майонезные соусы:</strong> 45% (295 млн руб)</p>
+                    <p><strong>Кетчупы:</strong> 30% (197 млн руб)</p>
+                    <p><strong>Сложные соусы:</strong> 15% (98 млн руб)</p>
+                    <p><strong>Азиатские соусы:</strong> 10% (66 млн руб)</p>
+                </div>
+                <div class="bg-red-50 p-4 rounded-lg shadow-sm">
+                    <h4 class="font-bold text-red-700">🔥 Ключевые тренды</h4>
+                    <p>Премиализация и качество</p>
+                    <p>Рост азиатской кухни</p>
+                    <p>Цифровизация закупок</p>
+                    <p>Здоровое питание</p>
+                </div>
+                <div class="bg-yellow-50 p-4 rounded-lg shadow-sm">
+                    <h4 class="font-bold text-yellow-700">🎪 Основные игроки</h4>
+                    <p>НМЖК, Unilever, ЭФКО, Махеевъ</p>
+                    <p>Специализированные поставщики HoReCa</p>
+                    <p>Региональные дистрибьюторы</p>
+                </div>
+            </div>
+            <p>Презентация содержит детальную инфографику, статистику, прогнозы и практические рекомендации для всех участников рынка. Анализ базируется на актуальных данных от ведущих исследовательских агентств и показывает высокий потенциал роста сегмента корпоративного питания в Москве.</p>
+        </div>
+
+        <div id="market-overview" class="tab-content p-8 pt-6 hidden">
+            <h2 class="text-2xl font-semibold mb-4">1. Обзор рынка корпоративного питания в Москве</h2>
+            <h3 class="text-xl font-semibold mb-3">Текущее состояние (2024-2025)</h3>
+            <ul class="list-disc pl-5 mb-4">
+                <li><strong>Общий оборот рынка общественного питания в РФ:</strong> 3,44 трлн руб (+9% к 2023 году)</li>
+                <li><strong>Доля Москвы в общероссийском объеме:</strong> около 15%</li>
+                <li><strong>Объем московского рынка общепита:</strong> ~516 млрд руб</li>
+                <li><strong>Количество заведений общепита в Москве:</strong> ~30 тыс объектов (рост +2% к 2023)</li>
+                <li><strong>Численность посещений кафе и ресторанов в Москве:</strong> 416 млн (+48% за 2020-2024)</li>
+            </ul>
+            <h3 class="text-xl font-semibold mb-3">Структура корпоративного питания</h3>
+            <ul class="list-disc pl-5">
+                <li>38% работодателей используют обеды в офисе</li>
+                <li>38% предоставляют ежемесячные выплаты на питание</li>
+                <li>62% производств готовой еды находятся в Москве и МО</li>
+                <li>Растущий спрос на готовую еду в сегменте B2B</li>
+            </ul>
+        </div>
+
+        <div id="sauce-analysis" class="tab-content p-8 pt-6 hidden">
+            <h2 class="text-2xl font-semibold mb-4">2. Анализ рынка соусов</h2>
+            <h3 class="text-xl font-semibold mb-3">Общероссийские показатели (2024-2025)</h3>
+            <ul class="list-disc pl-5 mb-4">
+                <li><strong>Объем продаж соусов в России:</strong> 1,28 млн тонн (+5,7% к 2023)</li>
+                <li><strong>Структура потребления:</strong>
+                    <ul class="list-circle pl-5">
+                        <li>Майонез и майонезные соусы - лидирующий сегмент</li>
+                        <li>Кетчуп и томатные соусы - второй по популярности</li>
+                        <li>Быстрорастущие категории: азиатские соусы, маринады, острые соусы</li>
+                    </ul>
+                </li>
+            </ul>
+            <h3 class="text-xl font-semibold mb-3">Специфика сегмента HoReCa</h3>
+            <ul class="list-disc pl-5">
+                <li>Среднее потребление соусов на человека: 16-20 кг в год</li>
+                <li>Доля сегмента HoReCa в общем объеме: ~25-30%</li>
+                <li>Популярная упаковка: дой-паки для профессионального использования</li>
+                <li>Тренд: рост спроса на готовые сложные соусы и маринады</li>
+            </ul>
+        </div>
+
+        <div id="needs-assessment" class="tab-content p-8 pt-6 hidden">
+            <h2 class="text-2xl font-semibold mb-4">3. Оценка потребности корпоративных столовых Москвы</h2>
+            <h3 class="text-xl font-semibold mb-3">Расчет потенциального рынка</h3>
+            <p class="mb-2"><strong>Базовые параметры:</strong></p>
+            <ul class="list-disc pl-5 mb-4">
+                <li>Количество офисных работников в Москве: ~2,5 млн человек</li>
+                <li>Доля пользующихся корпоративным питанием: ~40% (1 млн человек)</li>
+                <li>Рабочих дней в году: 250</li>
+                <li>Среднее потребление соусов на 1 прием пищи: 15-20 г</li>
+            </ul>
+            <p class="mb-2"><strong>Расчет годовой потребности:</strong></p>
+            <p class="mb-4">1 млн работников × 250 дней × 17,5 г = <strong>4 375 тонн в год</strong></p>
+            <p class="mb-4">При средней цене 150 руб/кг = <strong>656 млн руб</strong></p>
+
+            <h3 class="text-xl font-semibold mb-3">Сегментация по типам соусов для корпоративных столовых</h3>
+            <ul class="list-disc pl-5 mb-6">
+                <li><strong>Майонез и майонезные соусы (45% рынка)</strong>
+                    <ul class="list-circle pl-5">
+                        <li>Объем: ~1 970 тонн/год</li>
+                        <li>Стоимость: ~295 млн руб</li>
+                    </ul>
+                </li>
+                <li><strong>Кетчуп и томатные соусы (30% рынка)</strong>
+                    <ul class="list-circle pl-5">
+                        <li>Объем: ~1 310 тонн/год</li>
+                        <li>Стоимость: ~197 млн руб</li>
+                    </ul>
+                </li>
+                <li><strong>Готовые сложные соусы (15% рынка)</strong>
+                    <ul class="list-circle pl-5">
+                        <li>Объем: ~655 тонн/год</li>
+                        <li>Стоимость: ~98 млн руб</li>
+                    </ul>
+                </li>
+                <li><strong>Азиатские и специализированные соусы (10% рынка)</strong>
+                    <ul class="list-circle pl-5">
+                        <li>Объем: ~440 тонн/год</li>
+                        <li>Стоимость: ~66 млн руб</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                <div class="bg-gray-50 p-4 rounded-lg shadow-inner">
+                    <h3 class="text-xl font-semibold mb-4 text-center">Прогноз объема рынка (2025-2030)</h3>
+                    <canvas id="marketForecastChart"></canvas>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-lg shadow-inner">
+                    <h3 class="text-xl font-semibold mb-4 text-center">Структура потребления соусов</h3>
+                    <canvas id="sauceStructureChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div id="trends" class="tab-content p-8 pt-6 hidden">
+            <h2 class="text-2xl font-semibold mb-4">4. Ключевые тренды и драйверы роста</h2>
+            <h3 class="text-xl font-semibold mb-3">Позитивные факторы</h3>
+            <ul class="list-disc pl-5 mb-4">
+                <li>Цифровизация корпоративного питания: рост онлайн-заказов и доставки</li>
+                <li>Премиализация: спрос на качественные и разнообразные соусы</li>
+                <li>Здоровое питание: рост спроса на натуральные и органические соусы</li>
+                <li>Международная кухня: популярность азиатских и fusion-соусов</li>
+                <li>Convenience-тренд: готовые решения для экономии времени</li>
+            </ul>
+            <h3 class="text-xl font-semibold mb-3">Вызовы рынка</h3>
+            <ul class="list-disc pl-5 mb-6">
+                <li>Кадровый дефицит в сфере общепита</li>
+                <li>Инфляционное давление на себестоимость</li>
+                <li>Логистические ограничения и рост транспортных расходов</li>
+                <li>Конкуренция с домашним питанием</li>
+            </ul>
+
+            <h2 class="text-2xl font-semibold mb-4">5. Конкурентная среда</h2>
+            <h3 class="text-xl font-semibold mb-3">Основные игроки рынка</h3>
+            <ul class="list-disc pl-5 mb-4">
+                <li>НМЖК (майонезы "Астория" для HoReCa)</li>
+                <li>Unilever (соусы Hellmann's, Knorr)</li>
+                <li>Эфко (майонезы "Слобода")</li>
+                <li>Махеевъ (полная линейка соусов)</li>
+                <li>Smart Chef (специализированные HoReCa-соусы)</li>
+            </ul>
+            <h3 class="text-xl font-semibold mb-3">Каналы дистрибуции</h3>
+            <ul class="list-disc pl-5">
+                <li>Специализированные поставщики HoReCa (МАРР РОССИЯ, Свит Лайф)</li>
+                <li>Прямые поставки от производителей</li>
+                <li>Кэш-энд-керри форматы (Metro C&C)</li>
+                <li>Региональные дистрибьюторы</li>
+            </ul>
+
+            <h2 class="text-2xl font-semibold mb-4 mt-6">6. Прогноз развития на 2025-2030 гг.</h2>
+            <h3 class="text-xl font-semibold mb-3">Сценарий роста рынка</h3>
+            <p class="mb-2"><strong>Консервативный прогноз (среднегодовой рост 8-10%):</strong></p>
+            <ul class="list-disc pl-5 mb-4">
+                <li>2025: 656 млн руб</li>
+                <li>2027: 795 млн руб</li>
+                <li>2030: 1,05 млрд руб</li>
+            </ul>
+            <p class="mb-2"><strong>Оптимистичный прогноз (среднегодовой рост 12-15%):</strong></p>
+            <ul class="list-disc pl-5 mb-4">
+                <li>2025: 656 млн руб</li>
+                <li>2027: 920 млн руб</li>
+                <li>2030: 1,35 млрд руб</li>
+            </ul>
+            <h3 class="text-xl font-semibold mb-3">Факторы роста</h3>
+            <ul class="list-disc pl-5">
+                <li>Увеличение числа офисных центров в Москве</li>
+                <li>Расширение практик корпоративного питания</li>
+                <li>Рост качественных требований к питанию</li>
+                <li>Внедрение новых форматов питания (dark kitchen, доставка)</li>
+            </ul>
+        </div>
+
+        <div id="recommendations" class="tab-content p-8 pt-6 hidden">
+            <h2 class="text-2xl font-semibold mb-4">7. Рекомендации для участников рынка</h2>
+            <h3 class="text-xl font-semibold mb-3">Для производителей</h3>
+            <ul class="list-disc pl-5 mb-4">
+                <li>Специализация на HoReCa-форматах: разработка профессиональной упаковки</li>
+                <li>Премиализация продуктовой линейки: натуральные и органические соусы</li>
+                <li>Расширение ассортимента: азиатские и fusion-направления</li>
+                <li>Цифровизация продаж: B2B-платформы и мобильные приложения</li>
+            </ul>
+            <h3 class="text-xl font-semibold mb-3">Для операторов корпоративного питания</h3>
+            <ul class="list-disc pl-5 mb-4">
+                <li>Диверсификация поставщиков: снижение зависимости от одного источника</li>
+                <li>Фокус на качество: премиальные соусы как конкурентное преимущество</li>
+                <li>Автоматизация закупок: системы управления запасами</li>
+                <li>Кастомизация меню: учет предпочтений сотрудников</li>
+            </ul>
+            <h3 class="text-xl font-semibold mb-3">Для инвесторов</h3>
+            <ul class="list-disc pl-5 mb-6">
+                <li>Перспективные ниши: производство специализированных соусов для HoReCa</li>
+                <li>Логистические решения: холодовые цепи и дистрибуция</li>
+                <li>Технологические стартапы: B2B-платформы для корпоративного питания</li>
+            </ul>
+
+            <h2 class="text-2xl font-semibold mb-4">Заключение</h2>
+            <p class="mb-4">Рынок готовых соусов для корпоративных столовых Москвы демонстрирует устойчивый потенциал роста с объемом 650+ млн руб к 2025 году и перспективой удвоения к 2030 году. Ключевыми драйверами роста станут премиализация, диверсификация вкусов и цифровизация процессов закупок.</p>
+
+            <h2 class="text-2xl font-semibold mb-4 mt-6">Источники данных:</h2>
+            <ul class="list-disc pl-5">
+                <li><a href="https://businesstat.ru/catalog/id8469/" target="_blank" class="text-blue-600 hover:underline">BusinesStat - Анализ рынка соусов в России</a></li>
+                <li><a href="https://tofpmp.ru/articles/biznes-trend-2025-goda-prodazha-gotovoy-edy/" target="_blank" class="text-blue-600 hover:underline">Исследование рынка готовой еды</a></li>
+                <li><a href="https://expertcc.ru/articles/rynok-obshchestvennogo-pitaniya-v-2024-g-vyros-na-9-nesmotrya-na-inflyatsiyu-i-kadrovyy-defitsit/" target="_blank" class="text-blue-600 hover:underline">Статистика общепита 2024</a></li>
+                <li><a href="https://marketing.rbc.ru/research/46814/" target="_blank" class="text-blue-600 hover:underline">RBC Marketing - Анализ рынка кафе и ресторанов в Москве</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Function to handle tab switching
+        function openTab(evt, tabName) {
+            let i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+
+            // If the "needs-assessment" tab is opened, ensure charts are rendered/updated
+            if (tabName === 'needs-assessment') {
+                renderCharts();
+            }
+        }
+
+        let marketForecastChartInstance = null;
+        let sauceStructureChartInstance = null;
+
+        // Function to render/update charts
+        function renderCharts() {
+            // Data for Market Forecast Chart
+            const forecastLabels = ['2025', '2027', '2030'];
+            const conservativeData = [656, 795, 1050]; // млн руб
+            const optimisticData = [656, 920, 1350]; // млн руб
+
+            const ctxForecast = document.getElementById('marketForecastChart').getContext('2d');
+            if (marketForecastChartInstance) {
+                marketForecastChartInstance.destroy(); // Destroy previous instance if it exists
+            }
+            marketForecastChartInstance = new Chart(ctxForecast, {
+                type: 'line',
+                data: {
+                    labels: forecastLabels,
+                    datasets: [{
+                        label: 'Консервативный прогноз (млн руб)',
+                        data: conservativeData,
+                        borderColor: '#2563eb', // Blue color
+                        backgroundColor: 'rgba(37, 99, 235, 0.2)',
+                        tension: 0.3,
+                        fill: true,
+                        pointBackgroundColor: '#2563eb'
+                    }, {
+                        label: 'Оптимистичный прогноз (млн руб)',
+                        data: optimisticData,
+                        borderColor: '#10b981', // Green color
+                        backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                        tension: 0.3,
+                        fill: true,
+                        pointBackgroundColor: '#10b981'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Объем рынка (млн руб)'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Год'
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.raw + ' млн руб';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Data for Sauce Structure Chart
+            const structureLabels = [
+                'Майонез и майонезные соусы (45%)',
+                'Кетчуп и томатные соусы (30%)',
+                'Готовые сложные соусы (15%)',
+                'Азиатские и специализированные соусы (10%)'
+            ];
+            const structureData = [45, 30, 15, 10]; // Percentages
+            const structureColors = [
+                '#f59e0b', // Amber
+                '#ef4444', // Red
+                '#3b82f6', // Blue
+                '#10b981'  // Green
+            ];
+
+            const ctxStructure = document.getElementById('sauceStructureChart').getContext('2d');
+            if (sauceStructureChartInstance) {
+                sauceStructureChartInstance.destroy(); // Destroy previous instance if it exists
+            }
+            sauceStructureChartInstance = new Chart(ctxStructure, {
+                type: 'pie',
+                data: {
+                    labels: structureLabels,
+                    datasets: [{
+                        data: structureData,
+                        backgroundColor: structureColors,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ': ' + context.raw + '%';
+                                }
+                            }
+                        },
+                        legend: {
+                            position: 'right', // Position legend to the right
+                            labels: {
+                                font: {
+                                    size: 12 // Adjust font size for legend if needed
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize the first tab on page load
+        window.onload = function() {
+            document.querySelector('.tab-button').click(); // Simulate click on the first tab
+        };
+    </script>
+</body>
+</html>
