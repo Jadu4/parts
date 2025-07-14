@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Марафон "Честный способ"</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com "></script>
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+
+  <!-- html2pdf.js -->
+  <script src=" https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js "></script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f0f2f5;
+    }
+    .header-font {
+      font-family: 'Montserrat', sans-serif;
+    }
+    .gradient-bg-indigo {
+      background: linear-gradient(135deg, #4338ca 0%, #6366f1 50%, #818cf8 100%);
+    }
+    .icon-indigo {
+      color: #6366f1;
+    }
+    .qr-placeholder {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(45deg, #e0e7ff 25%, transparent 25%), 
+                  linear-gradient(-45deg, #e0e7ff 25%, transparent 25%),
+                  linear-gradient(45deg, transparent 75%, #e0e7ff 75%),
+                  linear-gradient(-45deg, transparent 75%, #e0e7ff 75%);
+      background-size: 8px 8px;
+      background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
+    }
+    .testimonial-bg-indigo {
+      background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+    }
+
+    @media print {
+      .no-print { display: none; }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 p-4 sm:p-8">
+
+  <!-- Кнопка скачивания PDF (только иконка) -->
+  <div class="max-w-2xl mx-auto mb-6 text-right no-print">
+    <button onclick="downloadPDF()" title="Скачать PDF" class="flex items-center justify-center w-10 h-10 bg-red-500 hover:bg-red-600 text-white rounded-full shadow transition-all">
+      <i class="fas fa-file-pdf text-xl"></i>
+    </button>
+  </div>
+
+  <!-- Вкладки -->
+  <div class="max-w-2xl mx-auto mb-6 flex border-b border-gray-300">
+    <button id="tab-av" class="w-full py-3 px-4 text-center font-semibold text-indigo-600 border-b-2 border-indigo-600">Аверс</button>
+    <button id="tab-rev" class="w-full py-3 px-4 text-center font-semibold text-gray-600 hover:text-indigo-600">Реверс</button>
+  </div>
+
+  <!-- Аверс -->
+  <div id="av" class="max-w-2xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+    <!-- Заголовочная зона -->
+    <div class="px-6 py-4 relative gradient-bg-indigo text-white">
+      <div class="flex justify-between items-center mb-3">
+        <div class="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center text-gray-500 text-xs font-semibold shadow-inner">
+          [ЛОГО]
+        </div>
+        <div class="text-center">
+          <div class="text-base font-bold text-white header-font">ЧЕСТНЫЙ СПОСОБ</div>
+          <h1 class="text-xl font-bold text-white header-font leading-tight mt-0.5">
+            ОТ ЗАВИСИМОСТИ<br>К НОВОМУ Я
+          </h1>
+        </div>
+        <div class="qr-placeholder rounded-lg border-2 border-white border-dashed flex items-center justify-center">
+          <i class="fas fa-qrcode text-white text-xl"></i>
+        </div>
+      </div>
+      <p class="text-base font-semibold text-white text-center mb-3">
+        Марафон по избавлению<br>от табачной зависимости
+      </p>
+      <center><div class="bg-red-500 text-white px-3 py-1.5 rounded-full text-sm font-bold inline-block mx-auto block w-fit shadow-md">
+        <i class="fas fa-calendar-alt mr-1"></i>СТАРТ: 1 СЕНТЯБРЯ в 14:00 МСК
+      </div></center>
+    </div>
+
+    <!-- Преимущества -->
+    <div class="px-6 py-3 border-t border-gray-200 space-y-3">
+      <div class="grid grid-cols-2 gap-1 mb-1">
+        <div class="bg-indigo-50 p-2 rounded-lg shadow-sm border border-indigo-200 flex items-center space-x-2">
+          <i class="fas fa-heart icon-indigo text-base"></i>
+          <span class="text-xs font-semibold text-gray-700">БЕЗ ТАБЛЕТОК И ПЛАСТЫРЕЙ</span>
+        </div>
+        <div class="bg-indigo-50 p-2 rounded-lg shadow-sm border border-indigo-200 flex items-center space-x-2">
+          <i class="fas fa-brain icon-indigo text-base"></i>
+          <span class="text-xs font-semibold text-gray-700">РАБОТАЕМ НА СМЫСЛОВОМ УРОВНЕ</span>
+        </div>
+        <div class="col-span-2 bg-indigo-50 p-2 rounded-lg shadow-sm border border-indigo-200 flex items-center justify-center space-x-2">
+          <i class="fas fa-shield-alt icon-indigo text-base"></i>
+          <span class="text-xs font-semibold text-gray-700">95% УЧАСТНИКОВ ДОСТИГАЮТ ЦЕЛИ</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Информационные блоки -->
+    <div class="px-6 py-3 flex-grow flex flex-col justify-between space-y-3">
+      <!-- Блоки "Устали от сигарет?" и "Наш уникальный метод самонаблюдения" -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-1 mb-1">
+        <div class="bg-indigo-50 p-2.5 rounded-lg shadow-sm border border-indigo-200">
+          <p class="text-sm font-semibold text-gray-800 mb-0.5">Устали от сигарет? Мечтаете о жизни без никотиновой привязанности?</p>
+          <p class="text-xs text-gray-600">Присоединяйтесь к марафону <strong class="text-indigo-600">"Честный способ"</strong> – ваш шанс на истинную свободу!</p>
+        </div>
+        <div class="bg-indigo-50 p-2.5 rounded-lg shadow-sm border border-indigo-200">
+          <p class="text-sm font-semibold text-gray-800 mb-0.5">Наш уникальный метод самонаблюдения</p>
+          <p class="text-xs text-gray-600">Работает с причиной зависимости, а не только с её симптомами. Забудьте о пластырях, гипнозе и бесполезных попытках – мы поможем вам обрести истинную свободу!</p>
+        </div>
+    </div>
+
+      <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+        <h3 class="text-sm font-bold text-gray-800 mb-3 header-font">Наш подход уникален:</h3>
+        <p class="text-xs font-semibold text-indigo-700 mb-1.5">САМОНАБЛЮДЕНИЕ - эффективная методика, работающая на всех уровнях:</p>
+        <div class="text-xs space-y-0.5">
+          <div class="flex items-center space-x-1">
+            <div class="w-2 h-2 bg-indigo-500 rounded-full"></div>
+            <span>Физический уровень</span>
+          </div>
+          <div class="flex items-center space-x-1">
+            <div class="w-2 h-2 bg-indigo-500 rounded-full"></div>
+            <span>Эмоциональный уровень</span>
+          </div>
+          <div class="flex items-center space-x-1">
+            <div class="w-2 h-2 bg-red-500 rounded-full"></div>
+            <span class="font-bold">Смысловой уровень (корень проблемы)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+        <h4 class="text-sm font-bold text-gray-800 mb-3 header-font">Что вас ждет:</h4>
+        <ul class="list-disc list-inside text-xs text-gray-700 mb-2 space-y-0.5">
+          <li><strong class="text-indigo-600">Осознание (7 дней):</strong> Поймите истинные психологические триггеры вашей зависимости.</li>
+          <li><strong class="text-indigo-600">Очищение (4 дня):</strong> Освободите тело и разум от никотина.</li>
+          <li><strong class="text-indigo-600">Освобождение (4 дня):</strong> Сформируйте новые, позитивные цели и начните жить полноценной жизнью.</li>
+        </ul>
+        <p class="text-xs text-gray-600">
+          Вас будут сопровождать опытные психологи, специалисты по нейрокоррекции и физиологи, которые сами успешно преодолели табачную зависимость.
+        </p>
+      </div>
+    </div>
+
+    <!-- Контактная информация -->
+    <div class="px-6 py-3 gradient-bg-indigo text-white text-center">
+      <p class="text-sm font-semibold mb-1"><i class="fas fa-globe mr-2"></i>andreysenchukov.ru</p>
+      <p class="text-xs opacity-90">Сканируйте QR-код для записи</p>
+    </div>
+  </div>
+
+  <!-- Реверс -->
+  <div id="rev" class="hidden max-w-2xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+    <div class="gradient-bg-indigo px-6 py-6 text-center">
+      <h2 class="text-xl font-bold text-white header-font mb-2">ОТЗЫВЫ УЧАСТНИКОВ</h2>
+      <p class="text-indigo-100 text-sm font-semibold">"Они смогли — сможете и вы!"</p>
+    </div>
+    <div class="px-6 py-4 space-y-4 max-h-80 overflow-y-auto">
+      <div class="testimonial-bg-indigo p-4 rounded-lg border-l-4 border-indigo-500 shadow-sm">
+        <p class="text-sm italic text-gray-700 mb-2">
+          "Курила 27 лет, перепробовала все - от пластырей до гипноза. Только на марафоне поняла настоящие причины зависимости. Свободна уже год!"
+        </p>
+        <p class="text-xs font-semibold text-indigo-700">— Елена К., психолог</p>
+      </div>
+      <div class="testimonial-bg-indigo p-4 rounded-lg border-l-4 border-indigo-500 shadow-sm">
+        <p class="text-sm italic text-gray-700 mb-2">
+          "19 лет с сигаретой. Думал, без нее не смогу работать. Марафон показал - все это иллюзии. Теперь помогаю другим."
+        </p>
+        <p class="text-xs font-semibold text-indigo-700">— Дмитрий М., специалист</p>
+      </div>
+      <div class="testimonial-bg-indigo p-4 rounded-lg border-l-4 border-indigo-500 shadow-sm">
+        <p class="text-sm italic text-gray-700 mb-2">
+          "Главное - я не 'бросила курить', я освободилась от рабства. Больше не планирую день вокруг перекуров!"
+        </p>
+        <p class="text-xs font-semibold text-indigo-700">— Татьяна С., 17 лет курения</p>
+      </div>
+      <div class="testimonial-bg-indigo p-4 rounded-lg border-l-4 border-indigo-500 shadow-sm">
+        <p class="text-sm italic text-gray-700 mb-2">
+          "Я курил 20 лет, и ничто не помогало. 'Честный способ' изменил мою жизнь! Я свободен уже полгода и чувствую себя прекрасно."
+        </p>
+        <p class="text-xs font-semibold text-indigo-700">– Дмитрий С.</p>
+      </div>
+      <div class="testimonial-bg-indigo p-4 rounded-lg border-l-4 border-indigo-500 shadow-sm">
+        <p class="text-sm italic text-gray-700 mb-2">
+          "Благодаря марафону я поняла, что моя зависимость была чисто психологической. Методика самонаблюдения открыла мне глаза. Спасибо команде!"
+        </p>
+        <p class="text-xs font-semibold text-indigo-700">– Елена К.</p>
+      </div>
+    </div>
+    <div class="px-6 py-4 gradient-bg-indigo text-white text-center">
+      <div class="mb-2">
+        <i class="fas fa-globe mr-2"></i>Онлайн-поддержка 24/7
+      </div>
+      <div class="text-sm font-bold">
+        Честный способ
+      </div>
+      <div class="text-xs opacity-90">
+        Ваш путь к свободе от табачной зависимости
+      </div>
+    </div>
+  </div>
+
+  <!-- JS для вкладок -->
+  <script>
+    const tabAv = document.getElementById('tab-av');
+    const tabRev = document.getElementById('tab-rev');
+    const av = document.getElementById('av');
+    const rev = document.getElementById('rev');
+
+    tabAv.addEventListener('click', () => {
+      tabAv.classList.add('border-indigo-600', 'text-indigo-600');
+      tabRev.classList.remove('border-indigo-600', 'text-indigo-600');
+      av.classList.remove('hidden');
+      rev.classList.add('hidden');
+    });
+
+    tabRev.addEventListener('click', () => {
+      tabRev.classList.add('border-indigo-600', 'text-indigo-600');
+      tabAv.classList.remove('border-indigo-600', 'text-indigo-600');
+      rev.classList.remove('hidden');
+      av.classList.add('hidden');
+    });
+
+    // Функция экспорта в PDF
+    function downloadPDF() {
+      const element = document.querySelector('#av, #rev:not(.hidden)');
+      const opt = {
+        margin:       0,
+        filename:     'chestnyy_put.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'mm', format: 'a5', orientation: 'portrait' }
+      };
+      html2pdf().set(opt).from(element).save();
+    }
+  </script>
+</body>
+</html>
